@@ -35,12 +35,14 @@ public class CommentsController {
         .orElseThrow(() -> new RuntimeException("Can't find the comment: " + id));
     }
     
-    @PostMapping("/comment")
+    @PostMapping("/comment/key")
+    @io.swagger.v3.oas.annotations.Operation(hidden = true)
     public MultilingualComment postMethodName(@RequestBody MultilingualComment multilingualComent) {        
         return commentRepository.save(multilingualComent);
     }
     
-    @DeleteMapping("/comment/{id}")
+    @DeleteMapping("/comment/key/{id}")
+    @io.swagger.v3.oas.annotations.Operation(hidden = true)
     public String delleteComment(@PathVariable String id){
         MultilingualComment comment = commentRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Can't find the comment: " + id));
