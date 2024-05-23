@@ -17,6 +17,7 @@ public class MultilingualComment {
     private String id;
     private String name;
     private String subject;
+    private boolean positiveComment;
 
     @ElementCollection
     @MapKeyColumn(name = "language")
@@ -25,6 +26,14 @@ public class MultilingualComment {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isPositiveComment() {
+        return positiveComment;
+    }
+
+    public void setPositiveComment(boolean positiveComment) {
+        this.positiveComment = positiveComment;
     }
 
     public Map<String, String> getResponse() {
