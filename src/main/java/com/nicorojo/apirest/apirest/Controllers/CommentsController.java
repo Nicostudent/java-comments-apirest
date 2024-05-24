@@ -35,14 +35,27 @@ public class CommentsController {
         .orElseThrow(() -> new RuntimeException("Can't find the comment: " + id));
     }
     
-    @PostMapping("/comment/key")
-    @io.swagger.v3.oas.annotations.Operation(hidden = true)
+    @PostMapping("/comment")
+    @io.swagger.v3.oas.annotations.Operation(hidden = false)
     public MultilingualComment postMethodName(@RequestBody MultilingualComment multilingualComent) {        
         return commentRepository.save(multilingualComent);
     }
-    
-    @DeleteMapping("/comment/key/{id}")
-    @io.swagger.v3.oas.annotations.Operation(hidden = true)
+
+    @PutMapping("/comment/{id}")
+    @io.swagger.v3.oas.annotations.Operation(hidden = false)
+    public MultilingualComment updateComment(@PathVariable String id, @RequestBody MultilingualComment updatedComment) {
+        MultilingualComment comment = commentRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Can't find the comment: " + id));
+
+        comment.setName(updatedComment.getName());
+        comment.setSubject(updatedComment.getSubject());
+        comment.setResponse(updatedComment.getResponse());
+        comment.setPositiveComment(updatedComment.isPositiveComment());
+
+        return commentRepository.save(comment);
+    }
+    @DeleteMapping("/comment/{id}")
+    @io.swagger.v3.oas.annotations.Operation(hidden = false)
     public String delleteComment(@PathVariable String id){
         MultilingualComment comment = commentRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Can't find the comment: " + id));
